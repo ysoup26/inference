@@ -1,0 +1,13 @@
+[설치가 필요한 라이브러리]
+-libtorch
+-opencv
+
+[실행파일 빌드]
+1. 해당 폴더(multi_inference)에 build 폴더 생성
+2. build 폴더로 진입
+3. cmake -DCMAKE_PREFIX_PATH=/home/seoyeon/seoyeon_big/libtorch ..
+4. cmake --build . --config Release
+
+[실행파일]
+./multi_mlperf /home/seoyeon/seoyeon_big/inference/multiSUT/alexnet_model.pt /home/seoyeon/seoyeon_big/inference/multiSUT/fake_imagenet
+#해당 실행파일의 매개변수는 모델절대경로와 데이터셋절대경로를 의미함.
