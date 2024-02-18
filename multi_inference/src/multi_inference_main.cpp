@@ -23,13 +23,7 @@
 #include "query_sample_library.h"
 
 //./include 폴더의 헤더함수들
-#include "A.h"
 #include "Inferencer.h"
-
-//Inferencer들의 시작과 중지 제어변수(Start and Stop Control Variable for SUT Threads)
-//지역변수나 멤버변수로 하면 에러가 있어서 전역변수로 함
-static std::atomic<bool> inferencers_keepalive_0;
-static std::atomic<bool> inferencers_keepalive_1; 
 
 std::vector<at::cuda::CUDAStream> streams;
 
@@ -548,18 +542,15 @@ int main(int argc,char *argv[])
     test_settings.mode = mlperf::TestMode::FindPeakPerformance;
   }
   const std::string kModelName = "resnet50";
-  const std::string kMlperfConfig = "/home/seoyeon/seoyeon_big/inference/multiSUT/user.conf";//parser.get<std::string>("--mlperf_config"); ##환경마다 달라짐
-  //test_settings.FromConfig(kMlperfConfig, kModelName, scenario_str);
-  //test_settings.FromConfig(kUserConfig, kModelName, scenario_str);
+  const std::string kMlperfConfig = "/home/seoyeon/seoyeon_big/inference/multiSUT/user.conf";
+
   if (true){//parser.get<bool>("--short")) {
     test_settings.min_duration_ms = 30000;
   }
     log_settings.log_output.outdir = "/home/seoyeon/seoyeon_big/inference/multiSUT/output";
   
-  //parser.get<std::string>("--output_dir");
   log_settings.log_output.prefix = "mlperf_log_";
-  log_settings.log_output.suffix = "multi";//parser.get<std::string>("--suffix"); //default는 ""
-  //std::cout<<log_settings.log_output.outdir.c_str()<<"\n"<<log_settings.log_output.prefix.c_str()<<"\n";
+  log_settings.log_output.suffix = "multi";
   log_settings.log_output.prefix_with_datetime = false;
   log_settings.log_output.copy_detail_to_stdout = false;
   log_settings.log_output.copy_summary_to_stdout = true;
